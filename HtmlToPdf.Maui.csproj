@@ -35,12 +35,12 @@
 	  <None Update="LICENSE.txt">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Readme.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 
