@@ -70,7 +70,7 @@ namespace HtmlToPdf.Maui
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, Microsoft.Maui.Controls.WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
         {
-            if (Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform.CreateRendererWithContext(xfWebView, Microsoft.Maui.ApplicationModel.Platform.CurrentActivity) is IVisualElementRenderer renderer)
+            if (Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform.CreateRendererWithContext(xfWebView, Android.App.Application.Context) is IVisualElementRenderer renderer)
             {
                 var droidWebView = renderer.View as Android.Webkit.WebView;
                 if (droidWebView == null && renderer.View is WebViewRenderer xfWebViewRenderer)
