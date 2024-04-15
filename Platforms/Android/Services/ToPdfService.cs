@@ -8,6 +8,7 @@ using HtmlToPdf.Maui.Interfaces;
 using HtmlToPdf.Maui.Models;
 using Java.Interop;
 using Java.Lang;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 
 namespace HtmlToPdf.Maui
 {
@@ -15,9 +16,18 @@ namespace HtmlToPdf.Maui
     {
         public bool IsAvailable => Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat;
 
-        public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin)
+        public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin = default)
         {
             var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
+
+            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
+                pageSize = PageSize.Default;
+
+            margin = margin ?? new PageMargin();
+
+            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
+                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
+
             ToPdf(taskCompletionSource, html, fileName, pageSize, margin);
             return await taskCompletionSource.Task;
         }
@@ -40,8 +50,59 @@ namespace HtmlToPdf.Maui
             webView.SetWebViewClient(new WebViewCallBack(taskCompletionSource, fileName, pageSize, margin, OnPageFinished));
         }
 
+        public async Task<ToFileResult> ToPdfAsync(Microsoft.Maui.Controls.WebView webView, string fileName, PageSize pageSize, PageMargin margin = default)
+        {
+            //if (!await XamarinEssentialsExtensions.ConfirmOrRequest<Xamarin.Essentials.Permissions.StorageWrite>())
+            //    return new ToFileResult(true, "Write External Stoarge permission must be granted for PNG images to be available.");
+            var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
 
-        async Task OnPageFinished(Android.Webkit.WebView webView, string fileName, PageSize pageSize, PageMargin margin, TaskCompletionSource<ToFileResult> taskCompletionSource)
+            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
+                pageSize = PageSize.Default;
+
+            margin = margin ?? new PageMargin();
+
+            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
+                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
+
+            ToPdf(taskCompletionSource, webView, fileName, pageSize, margin);
+            return await taskCompletionSource.Task;
+        }
+
+        public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, Microsoft.Maui.Controls.WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
+        {
+            if (Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform.CreateRendererWithContext(xfWebView, Microsoft.Maui.ApplicationModel.Platform.CurrentActivity) is IVisualElementRenderer renderer)
+            {
+                var droidWebView = renderer.View as Android.Webkit.WebView;
+                if (droidWebView == null && renderer.View is WebViewRenderer xfWebViewRenderer)
+                    droidWebView = xfWebViewRenderer.Control;
+                if (droidWebView != null)
+                {
+                    //var size = new Size(8.5, 11);
+
+                    //var externalPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                    //using (var dir = new Java.IO.File(externalPath))
+                    //using (var file = new Java.IO.File(dir + "/" + fileName + ".pdf"))
+                    //{
+                    //if (!dir.Exists())
+                    //    dir.Mkdir();
+                    //if (file.Exists())
+                    //    file.Delete();
+
+                    droidWebView.SetLayerType(LayerType.Software, null);
+                    droidWebView.Settings.JavaScriptEnabled = true;
+#pragma warning disable CS0618 // Type or member is obsolete
+                    droidWebView.DrawingCacheEnabled = true;
+                    droidWebView.BuildDrawingCache();
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                    droidWebView.SetWebViewClient(new WebViewCallBack(taskCompletionSource, fileName, pageSize, margin, OnPageFinished));
+                    //}
+                }
+            }
+        }
+
+
+            async Task OnPageFinished(Android.Webkit.WebView webView, string fileName, PageSize pageSize, PageMargin margin, TaskCompletionSource<ToFileResult> taskCompletionSource)
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
             {
@@ -196,7 +257,7 @@ namespace HtmlToPdf.Maui
             //using (var _dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDocuments))
             //using (var _dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads))
             //using (var _dir = Forms9Patch.Droid.Settings.Context.FilesDir)
-            using (var _dir = Platform.CurrentActivity.CacheDir)
+            using (var _dir = Microsoft.Maui.ApplicationModel.Platform.CurrentActivity.CacheDir)
             {
                 if (!_dir.Exists())
                     _dir.Mkdir();

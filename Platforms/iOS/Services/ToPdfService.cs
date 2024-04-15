@@ -2,6 +2,7 @@
 using Foundation;
 using HtmlToPdf.Maui.Interfaces;
 using HtmlToPdf.Maui.Models;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using UIKit;
 using WebKit;
 
@@ -28,11 +29,47 @@ namespace HtmlToPdf.Maui
             return root;
         }
 
-        public Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin)
+
+        public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin = default)
         {
             var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
+
+            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
+                pageSize = PageSize.Default;
+
+            margin = margin ?? new PageMargin();
+
+            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
+                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
+
             ToPdf(taskCompletionSource, html, fileName, pageSize, margin);
-            return taskCompletionSource.Task;
+            return await taskCompletionSource.Task;
+        }
+
+        public async Task<ToFileResult> ToPdfAsync(WebView webView, string fileName, PageSize pageSize, PageMargin margin = default)
+        { 
+            var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
+
+            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
+                pageSize = PageSize.Default;
+
+            margin = margin ?? new PageMargin();
+
+            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
+                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
+
+            ToPdf(taskCompletionSource, webView, fileName, pageSize, margin);
+            return await taskCompletionSource.Task;
+        }
+
+        public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
+        {
+            if (Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.CreateRenderer(xfWebView) is WkWebViewRenderer renderer)
+            {
+                renderer.BackgroundColor = UIColor.White;
+                renderer.UserInteractionEnabled = false;
+                renderer.NavigationDelegate = new WKNavigationCompleteCallback(fileName, pageSize, margin, taskCompletionSource, NavigationComplete);
+            }
         }
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, string html, string fileName, PageSize pageSize, PageMargin margin)
