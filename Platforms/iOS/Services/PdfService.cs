@@ -2,20 +2,19 @@
 using Foundation;
 using HtmlToPdf.Maui.Interfaces;
 using HtmlToPdf.Maui.Models;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using UIKit;
 using WebKit;
 
 namespace HtmlToPdf.Maui
 {
-    public class ToPdfService : UIPrintInteractionControllerDelegate, IToPdfService
+    public class PdfService : UIPrintInteractionControllerDelegate, IPdfService
     {
 
         public bool IsAvailable => UIPrintInteractionController.PrintingAvailable;
 
         const string LocalStorageFolderName = "HtmlToPdf.Maui.ToPdfService";
 
-        static ToPdfService()
+        static PdfService()
         {
             var path = FolderPath();
             Directory.Delete(path, true);
@@ -23,6 +22,8 @@ namespace HtmlToPdf.Maui
 
         public static string FolderPath()
         {
+           return FileSystem.CacheDirectory;
+
             P42.Utils.DirectoryExtensions.AssureExists(P42.Utils.Environment.TemporaryStoragePath);
             var root = Path.Combine(P42.Utils.Environment.TemporaryStoragePath, LocalStorageFolderName);
             P42.Utils.DirectoryExtensions.AssureExists(root);
@@ -30,46 +31,31 @@ namespace HtmlToPdf.Maui
         }
 
 
-        public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin = default)
+        public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin)
         {
             var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
-
-            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
-                pageSize = PageSize.Default;
-
-            margin = margin ?? new PageMargin();
-
-            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
-                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
-
             ToPdf(taskCompletionSource, html, fileName, pageSize, margin);
             return await taskCompletionSource.Task;
         }
 
-        public async Task<ToFileResult> ToPdfAsync(WebView webView, string fileName, PageSize pageSize, PageMargin margin = default)
+        public async Task<ToFileResult> ToPdfAsync(WebView webView, string fileName, PageSize pageSize, PageMargin margin)
         { 
             var taskCompletionSource = new TaskCompletionSource<ToFileResult>();
-
-            if (pageSize is null || pageSize.Width <= 0 || pageSize.Height <= 0)
-                pageSize = PageSize.Default;
-
-            margin = margin ?? new PageMargin();
-
-            if (pageSize.Width - margin.HorizontalThickness < 1 || pageSize.Height - margin.VerticalThickness < 1)
-                return new ToFileResult(true, "Page printable area (page size - margins) has zero width or height.");
-
             ToPdf(taskCompletionSource, webView, fileName, pageSize, margin);
             return await taskCompletionSource.Task;
         }
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
         {
-            if (Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.CreateRenderer(xfWebView) is WkWebViewRenderer renderer)
-            {
+
+            dynamic renderer = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.CreateRenderer(xfWebView);
+
+            //if (Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.CreateRenderer(xfWebView) is Microsoft.Maui.Controls.Compatibility.Platform.iOS.WkWebViewRenderer renderer)
+            //{
                 renderer.BackgroundColor = UIColor.White;
                 renderer.UserInteractionEnabled = false;
                 renderer.NavigationDelegate = new WKNavigationCompleteCallback(fileName, pageSize, margin, taskCompletionSource, NavigationComplete);
-            }
+            //}
         }
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, string html, string fileName, PageSize pageSize, PageMargin margin)

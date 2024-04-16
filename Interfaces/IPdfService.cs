@@ -5,7 +5,7 @@ namespace HtmlToPdf.Maui.Interfaces
     /// <summary>
     /// Html to pdf service.
     /// </summary>
-    public interface IToPdfService
+    public interface IPdfService
     {
         /// <summary>
         /// Html to PNG interface
@@ -17,6 +17,9 @@ namespace HtmlToPdf.Maui.Interfaces
         /// <returns></returns>
 		Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin);
 
+
+        //Task<ToFileResult> ToPdfAsync(WebView webView, string fileName, PageSize pageSize, PageMargin margin);
+        
 
         /// <summary>
         /// Determines if PDF printing is available on this platform;

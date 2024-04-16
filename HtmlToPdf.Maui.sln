@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlToPdf.Maui", "HtmlToPdf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P42.Utils", "..\P42.Utils\P42.Utils.csproj", "{D8396AC2-ECC3-4C01-8185-92591E756ADD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "..\Sample\Sample.csproj", "{16FD122E-31C8-434C-8898-9FC698327BEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{D8396AC2-ECC3-4C01-8185-92591E756ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8396AC2-ECC3-4C01-8185-92591E756ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8396AC2-ECC3-4C01-8185-92591E756ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16FD122E-31C8-434C-8898-9FC698327BEF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

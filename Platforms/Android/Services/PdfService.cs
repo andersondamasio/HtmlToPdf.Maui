@@ -9,10 +9,12 @@ using HtmlToPdf.Maui.Models;
 using Java.Interop;
 using Java.Lang;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using AndroidPlatform = Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform;
+
 
 namespace HtmlToPdf.Maui
 {
-    public class ToPdfService : Java.Lang.Object, IToPdfService
+    public class PdfService : Java.Lang.Object, IPdfService
     {
         public bool IsAvailable => Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat;
 
@@ -68,9 +70,21 @@ namespace HtmlToPdf.Maui
             return await taskCompletionSource.Task;
         }
 
+        static Android.Content.Context _context;
+        public static Android.Content.Context Context
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            get => _context ?? Android.App.Application.Context; //Xamarin.Forms.Forms.Context;
+#pragma warning restore CS0618 // Type or member is obsolete
+            private set => _context = value;
+        }
+
+
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, Microsoft.Maui.Controls.WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
         {
-            if (Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform.CreateRendererWithContext(xfWebView, Android.App.Application.Context) is IVisualElementRenderer renderer)
+            //if (.CreateRendererWithContext(xfWebView, Microsoft.Maui.ApplicationModel.Platform.AppContext) is IVisualElementRenderer renderer)
+            if (AndroidPlatform.CreateRendererWithContext(xfWebView, Microsoft.Maui.ApplicationModel.Platform.CurrentActivity) is IVisualElementRenderer renderer)
+            // if (Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform.CreateRendererWithContext(xfWebView, Context) is IVisualElementRenderer renderer)
             {
                 var droidWebView = renderer.View as Android.Webkit.WebView;
                 if (droidWebView == null && renderer.View is WebViewRenderer xfWebViewRenderer)
