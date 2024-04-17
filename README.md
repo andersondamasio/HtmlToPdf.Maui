@@ -34,3 +34,6 @@ public static class MauiProgram
         }
     }
           </pre>
+
+
+Currently available for Android and IOS.
