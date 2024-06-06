@@ -11,5 +11,10 @@ namespace HtmlToPdf.Maui
         {
             throw new NotImplementedException();
         }
+
+        public Task<ToFileResult> ToPdfAsync(WebView webView, string fileName, PageSize pageSize, PageMargin margin)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using HtmlToPdf.Maui.Interfaces;
 using HtmlToPdf.Maui.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HtmlToPdf.Maui
 {
@@ -35,16 +30,15 @@ namespace HtmlToPdf.Maui
         }
 
         /// <summary>
-        /// Converts HTML text to PNG
+        /// Converts HTML text to PDF
         /// </summary>
         /// <param name="html">HTML string to be converted to PDF</param>
         /// <param name="fileName">Name (not path), excluding suffix, of PDF file</param>
         /// <param name="pageSize">PDF page size, in points. (default based upon user's region)</param>
         /// <param name="margin">PDF page's margin, in points. (default is zero)</param>
         /// <returns></returns>
-        public static async Task<ToFileResult> ToPdfAsync(this string html, string fileName, PageSize pageSize = default, PageMargin margin = default)
+     /*   public static async Task<ToFileResult> ToPdfAsync(this string html, string fileName, PageSize pageSize = default, PageMargin margin = default)
         {
-
             _platformToPdfService = _platformToPdfService ?? Application.Current!.MainPage!.Handler.MauiContext.Services.GetService<IPdfService>();
             if (_platformToPdfService == null)
                 throw new NotSupportedException("Cannot get HtmlService: must not be supported on this platform.");
@@ -61,17 +55,17 @@ namespace HtmlToPdf.Maui
 
             await Task.Delay(50);
             return result;
-        }
+        }*/
 
         /// <summary>
-        /// Creates a PNG from the contents of a Xamarin.Forms.WebView
+        /// Creates a PDF from the contents of a Microsoft.Maui.Controls.WebView
         /// </summary>
         /// <param name="webView">Xamarin.Forms.WebView</param>
         /// <param name="fileName">Name (not path), excluding suffix, of PDF file</param>
         /// <param name="pageSize">PDF page size, in points. (default based upon user's region)</param>
         /// <param name="margin">PDF page's margin, in points. (default is zero)</param>
         /// <returns>Forms9Patch.ToFileResult</returns>
-        /*public static async Task<ToFileResult> ToPdfAsync(this WebView webView, string fileName, PageSize pageSize = default, PageMargin margin = default)
+        public static async Task<ToFileResult> ToPdfAsync(this WebView webView, string fileName, PageSize pageSize = default, PageMargin margin = default)
         {
             _platformToPdfService = _platformToPdfService ?? Application.Current!.MainPage!.Handler.MauiContext.Services.GetService<IPdfService>();
             if (_platformToPdfService == null)
@@ -89,6 +83,6 @@ namespace HtmlToPdf.Maui
 
             await Task.Delay(50);
             return result;
-        }*/
+        }
     }
 }
