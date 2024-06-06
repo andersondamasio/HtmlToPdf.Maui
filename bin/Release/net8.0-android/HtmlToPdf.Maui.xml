@@ -1,0 +1,639 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HtmlToPdf.Maui</name>
+    </assembly>
+    <members>
+        <member name="T:HtmlToPdf.Maui.Interfaces.IPdfService">
+            <summary>
+            Html to pdf service.
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Interfaces.IPdfService.ToPdfAsync(Microsoft.Maui.Controls.WebView,System.String,HtmlToPdf.Maui.Models.PageSize,HtmlToPdf.Maui.Models.PageMargin)">
+            <summary>
+            Creates a PDF from the contents of a Microsoft.Maui.Controls.WebView
+            WebView must be on screen and not instantiated via code
+            </summary>
+            <param name="webView"> Microsoft.Maui.Controls.WebView</param>
+            <param name="fileName">Name (not path), excluding suffix, of PDF file</param>
+            <param name="pageSize">PDF page size, in points. (default based upon user's region)</param>
+            <param name="margin">PDF page's margin, in points. (default is zero)</param>
+            <returns>Forms9Patch.ToFileResult</returns>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Interfaces.IPdfService.IsAvailable">
+            <summary>
+            Determines if PDF printing is available on this platform;
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.Left">
+            <summary>
+            Left margin (points)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.Right">
+            <summary>
+            Right margin (points)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.Top">
+            <summary>
+            Top margin (points)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.Bottom">
+            <summary>
+            Bottom margin (points)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.HorizontalThickness">
+            <summary>
+            Combined left and right margins (points)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageMargin.VerticalThickness">
+            <summary>
+            Combined top and bottom margins (points)
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInInches(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new PageMargin from left, right, top, and bottom dimensions (in inches)
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="top"></param>
+            <param name="bottom"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInInches(System.Double,System.Double)">
+            <summary>
+            Creates a new PageMargin from horizontal and vertical margin dimensions (in inches)
+            </summary>
+            <param name="horizontal"></param>
+            <param name="vertical"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInInches(System.Double)">
+            <summary>
+            Creates a new PageMargin from uniform margin dimensions (in inches)
+            </summary>
+            <param name="all"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInMillimeters(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new PageMargin from left, right, top, and bottom dimensions (in millimeters)
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="top"></param>
+            <param name="bottom"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInMillimeters(System.Double,System.Double)">
+            <summary>
+            Creates a new PageMargin from horizontal and vertical margin dimensions (in millimeters)
+            </summary>
+            <param name="horizontal"></param>
+            <param name="vertical"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageMargin.CreateInMillimeters(System.Double)">
+            <summary>
+             Creates a new PageMargin from uniform margin dimensions (in millimeters)
+            </summary>
+            <param name="all"></param>
+            <returns></returns>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Width">
+            <summary>
+            Page width in points (72 points per inch)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Height">
+            <summary>
+            Page height in points (72 points per inch)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Name">
+            <summary>
+            Name of Page Size
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageSize.CreateInInches(System.Double,System.Double,System.String)">
+            <summary>
+            Creates a new PaperSize from length and height dimensions in inches 
+            </summary>
+            <param name="inchWidth"></param>
+            <param name="inchHeight"></param>
+            <param name="callerName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageSize.CreateInMillimeters(System.Double,System.Double,System.String)">
+            <summary>
+            Creates a new PaperSize from length and height dimensions in millimeters
+            </summary>
+            <param name="mmWidth"></param>
+            <param name="mmHeight"></param>
+            <param name="callerName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageSize.AsLandscape">
+            <summary>
+            Sets the current paper size to landscape orientation
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.PageSize.AsPortrait">
+            <summary>
+            Sets the current PaperSize to portrait orientation
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Default">
+            <summary>
+            Default paper size for current region (either Letter or IsoA4);
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA0">
+            <summary>
+            International Standards Organization A0 (841 mm x 1189 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA1">
+            <summary>
+            International Standards Organization A1 (594 mm x 841 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA2">
+            <summary>
+            International Standards Organization A2 (420 mm x 594 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA3">
+            <summary>
+            International Standards Organization A3 (297 mm x 420 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA4">
+            <summary>
+            International Standards Organization A4 (210 mm x 297 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA5">
+            <summary>
+            International Standards Organization A5 (148 mm x 210 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA6">
+            <summary>
+            International Standards Organization A6 (105 mm x 148 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA7">
+            <summary>
+            International Standards Organization A7 (74 mm x 105 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA8">
+            <summary>
+            International Standards Organization A8 (52 mm x 74 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA9">
+            <summary>
+            International Standards Organization A9 (37 mm x 52 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoA10">
+            <summary>
+            International Standards Organization A10 (26 mm x 37 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB0">
+            <summary>
+            International Standards Organization B0 (1000 mm x 1414 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB1">
+            <summary>
+            International Standards Organization B1 (707 mm x 1000 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB2">
+            <summary>
+            International Standards Organization B2 (500 mm x 707 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB3">
+            <summary>
+            International Standards Organization B3 (353 mm x 500 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB4">
+            <summary>
+            International Standards Organization B4 (250 mm x 353 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB5">
+            <summary>
+            International Standards Organization B5 (176 mm x 250 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB6">
+            <summary>
+            International Standards Organization B6 (125 mm x 176 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB7">
+            <summary>
+            International Standards Organization B7 (88 mm x 125 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB8">
+            <summary>
+            International Standards Organization B8 (62 mm x 88 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB9">
+            <summary>
+            International Standards Organization B9 (44 mm x 62 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoB10">
+            <summary>
+            International Standards Organization B10 (31 mm x 44 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC0">
+            <summary>
+            International Standards Organization C0 (917 mm x 1297 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC1">
+            <summary>
+            International Standards Organization C1 (648 mm x 917 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC2">
+            <summary>
+            International Standards Organization C2 (458 mm x 648 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC3">
+            <summary>
+            International Standards Organization C3 (324 mm x 458 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC4">
+            <summary>
+            International Standards Organization C4 (229 mm x 324 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC5">
+            <summary>
+            International Standards Organization C5 (162 mm x 229 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC6">
+            <summary>
+            International Standards Organization C6 (114 mm x 162 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC7">
+            <summary>
+            International Standards Organization C7 (81 mm x 114 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC8">
+            <summary>
+            International Standards Organization C8 (57 mm x 81 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC9">
+            <summary>
+            International Standards Organization C9 (40 mm x 57 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.IsoC10">
+            <summary>
+            International Standards Organization C10 (28 mm x 40 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB0">
+            <summary>
+            Japanese Industrial Standards B0 (1030 mm x 1456 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB1">
+            <summary>
+            Japanese Industrial Standards B1 (728 mm x 1030 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB2">
+            <summary>
+            Japanese Industrial Standards B2 (515 mm x 728 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB3">
+            <summary>
+            Japanese Industrial Standards B3 (364 mm x 515 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB4">
+            <summary>
+            Japanese Industrial Standards B4 (257 mm x 364 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB5">
+            <summary>
+            Japanese Industrial Standards B5 (182 mm x 257 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB6">
+            <summary>
+            Japanese Industrial Standards B6 (128 mm x 182 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB7">
+            <summary>
+            Japanese Industrial Standards B7 (91 mm x 128 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB8">
+            <summary>
+            Japanese Industrial Standards B8 (64 mm x 91 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB9">
+            <summary>
+            Japanese Industrial Standards B9 (45 mm x 64 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisB10">
+            <summary>
+            Japanese Industrial Standards B10 (32 mm x 45 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JisExec">
+            <summary>
+            Japanese Industrial Standards Exec (216 mm x 330 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnChou2">
+            <summary>
+            Japan Chou2 (111.1 mm x 146 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnChou3">
+            <summary>
+            Japan Chou3 (120 mm x 235 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnChou4">
+            <summary>
+            Japan Chou4 (90 mm x 205 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnHagaki">
+            <summary>
+            Japan Hagaki Postcard (100 mm x 148 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnKahu">
+            <summary>
+            Japan Kahu (240 mm x 322.1 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnKahu2">
+            <summary>
+            Japan Kahu2 (240 mm x 332 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnOufuku">
+            <summary>
+            Japan Oufuku (148 mm x 200 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.JpnYou4">
+            <summary>
+            Japan You 4 (105 mm x 235 mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaLedger">
+            <summary>
+            North America Ledger media (17" x 11")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaTabloid">
+            <summary>
+            North America Tabloid media (11" x 17")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaLegal">
+            <summary>
+            North America Legal media (8.5" x 14")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaLetter">
+            <summary>
+            North America Letter media (8.5" x 11")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaGovernmentLetter">
+            <summary>
+            North America Government-Letter media (8.0" x 10.5")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaJuniorLegal">
+            <summary>
+            North America Junior Legal media (8.0" x 5.0")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaFoolscap">
+            <summary>
+            North America Foolscap media (8" x 13")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaIndex3x5">
+            <summary>
+            North America Index Card 3x5 (3" x 5")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaIndex4x6">
+            <summary>
+            North America Index Card 4x6 (4" x 6")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaIndex5x8">
+            <summary>
+            North America Index Card 5x8 (5" x 8")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaMonarch">
+            <summary>
+            North America Monarch (7.25" x 10.5")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaQuarto">
+            <summary>
+            North America Quarto (8" x 10")
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaEnvelopeNo09">
+            <summary>
+            North Amerian #9 Envelope
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.NaEnvelopeNo10">
+            <summary>
+            North America #10 Envelope
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.AnsiA">
+            <summary>
+            American National Standards Institute: A (11" x 9.5");
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.AnsiB">
+            <summary>
+            American National Standards Institute: B (17" x 11");
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.AnsiC">
+            <summary>
+            American National Standards Institute: C (22" x 17");
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.AnsiD">
+            <summary>
+            American National Standards Institute: D (34" x 22");
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.AnsiE">
+            <summary>
+            American National Standards Institute: E (44" x 34");
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.OmDaiPaKai">
+            <summary>
+            Chinese Dai Pa Kai media (275mm x 395mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.OmJuuroKuKai">
+            <summary>
+            Chinese Jurro Ku Kai media (198mm x 275mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.OmPaKai">
+            <summary>
+            Chinese Pa Kai media (267mm x 389mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc1">
+            <summary>
+            Peoples Republic of China 1 (102mm x 165mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc2">
+            <summary>
+            Peoples Republic of China 2 (102mm x 176mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc3">
+            <summary>
+            Peoples Republic of China 3 (125mm x 176mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc4">
+            <summary>
+            Peoples Republic of China 4 (110mm x 208mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc5">
+            <summary>
+            Peoples Republic of China 5 (110mm x 220mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc6">
+            <summary>
+            Peoples Republic of China 6 (120mm x 320mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc7">
+            <summary>
+            Peoples Republic of China 7 (160mm x 230mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc8">
+            <summary>
+            Peoples Republic of China 8 (120mm x 309mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc9">
+            <summary>
+            Peoples Republic of China 9 (229mm x 324mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc10">
+            <summary>
+            Peoples Republic of China 10 (324mm x 458mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Prc16K">
+            <summary>
+            Peoples Republic of China 16K (146mm x 215mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Roc16K">
+            <summary>
+            Republic of China 16K (195mm x 270mm)
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.PageSize.Roc8K">
+            <summary>
+            Republic of China 8K (270mm x 390mm)
+            </summary>
+        </member>
+        <member name="T:HtmlToPdf.Maui.Models.ToFileResult">
+            <summary>
+            Result from ToPng and ToPdf processes
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.ToFileResult.IsError">
+            <summary>
+            Flags if the Result is an error;
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.Models.ToFileResult.Result">
+            <summary>
+            Either success or error result
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.Models.ToFileResult.#ctor(System.Boolean,System.String)">
+            <summary>
+            Html to PNG result
+            </summary>
+            <param name="isError"></param>
+            <param name="result"></param>
+        </member>
+        <member name="T:HtmlToPdf.Maui.ToPdfService">
+            <summary>
+            Html string extensions.
+            </summary>
+        </member>
+        <member name="P:HtmlToPdf.Maui.ToPdfService.IsAvailable">
+            <summary>
+            Returns true if PDF generation is available on this device
+            </summary>
+        </member>
+        <member name="M:HtmlToPdf.Maui.ToPdfService.ToPdfAsync(Microsoft.Maui.Controls.WebView,System.String,HtmlToPdf.Maui.Models.PageSize,HtmlToPdf.Maui.Models.PageMargin)">
+            <summary>
+            Creates a PDF from the contents of a Microsoft.Maui.Controls.WebView
+            </summary>
+            <param name="webView">Xamarin.Forms.WebView</param>
+            <param name="fileName">Name (not path), excluding suffix, of PDF file</param>
+            <param name="pageSize">PDF page size, in points. (default based upon user's region)</param>
+            <param name="margin">PDF page's margin, in points. (default is zero)</param>
+            <returns>Forms9Patch.ToFileResult</returns>
+        </member>
+    </members>
+</doc>
