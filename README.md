@@ -35,7 +35,9 @@ public static class MauiProgram
     }
           </pre>
 
-create a MainPage.xaml
+Example:<br/>
+
+create a MainPage.xaml<br/>
 In XAML it is necessary to insert a WebView with Visibility false.
 
         <VerticalStackLayout
