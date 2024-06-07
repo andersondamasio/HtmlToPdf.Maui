@@ -83,6 +83,6 @@ In the code links put:
         }
     }
 }
-<pre/>
+        </pre>
 
 Currently available for Android and IOS.
