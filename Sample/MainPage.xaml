@@ -12,6 +12,7 @@
                 Text="Generate" 
                 Clicked="GenerateClicked"
                 HorizontalOptions="Fill" />
+            <WebView x:Name="WebViewPDF" IsVisible="False"/>
         </VerticalStackLayout>
     </ScrollView>
 

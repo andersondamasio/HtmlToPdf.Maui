@@ -6,16 +6,20 @@ namespace Sample
 {
     public partial class MainPage : ContentPage
     {
+        private string html = "<b>Hello</a>";
+
         public MainPage()
         {
             InitializeComponent();
         }
 
+
+       
         private async void GenerateClicked(object sender, EventArgs e)
         {
-            string html = "<b> Hello World </b>";
+            WebViewPDF.Source = new HtmlWebViewSource() {  Html = html  };
 
-            if (await ToPdfService.ToPdfAsync(html, "sampleNamePdf") is ToFileResult result)
+            if (await ToPdfService.ToPdfAsync(WebViewPDF, "sampleNamePdf") is ToFileResult result)
             {
                 if (result.IsError)
                 {
