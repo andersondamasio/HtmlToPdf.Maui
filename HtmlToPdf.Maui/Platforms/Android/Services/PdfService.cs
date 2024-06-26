@@ -37,6 +37,11 @@ namespace HtmlToPdf.Maui
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification = "CustomWebView is disposed in Callback.Compete")]
         public async void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, string html, string fileName, PageSize pageSize, PageMargin margin)
         {
+
+
+
+
+
             var webView = new Android.Webkit.WebView(Android.App.Application.Context);
             webView.Settings.JavaScriptEnabled = true;
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -163,14 +168,14 @@ namespace HtmlToPdf.Maui
 
         public override void OnPageStarted(Android.Webkit.WebView view, string url, Bitmap favicon)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             base.OnPageStarted(view, url, favicon);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0165:Asynchronous methods should return a Task instead of void", Justification = "Needed to invoke async code on main thread.")]
         public override void OnPageFinished(Android.Webkit.WebView view, string url)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": SUCCESS!");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": SUCCESS!");
             if (!_complete)
             {
                 _complete = true;
@@ -196,13 +201,13 @@ namespace HtmlToPdf.Maui
 
         public override bool OnRenderProcessGone(Android.Webkit.WebView view, RenderProcessGoneDetail detail)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             return base.OnRenderProcessGone(view, detail);
         }
 
         public override void OnLoadResource(Android.Webkit.WebView view, string url)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             base.OnLoadResource(view, url);
             Device.StartTimer(TimeSpan.FromSeconds(10), () =>
             {
@@ -214,19 +219,19 @@ namespace HtmlToPdf.Maui
 
         public override void OnPageCommitVisible(Android.Webkit.WebView view, string url)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             base.OnPageCommitVisible(view, url);
         }
 
         public override void OnUnhandledKeyEvent(Android.Webkit.WebView view, KeyEvent e)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             base.OnUnhandledKeyEvent(view, e);
         }
 
         public override void OnUnhandledInputEvent(Android.Webkit.WebView view, InputEvent e)
         {
-            System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
+            //System.Diagnostics.Debug.WriteLine("WebViewCallBack" + P42.Utils.ReflectionExtensions.CallerString() + ": ");
             base.OnUnhandledInputEvent(view, e);
         }
     }

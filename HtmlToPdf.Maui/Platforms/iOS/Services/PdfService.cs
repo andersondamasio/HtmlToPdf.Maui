@@ -1,7 +1,9 @@
-﻿using CoreGraphics;
+﻿using CoreAnimation;
+using CoreGraphics;
 using Foundation;
 using HtmlToPdf.Maui.Interfaces;
 using HtmlToPdf.Maui.Models;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using UIKit;
@@ -19,19 +21,20 @@ namespace HtmlToPdf.Maui
         static PdfService()
         {
             var path = FolderPath();
-            Directory.Delete(path, true);
+            if(Directory.Exists(path))
+               Directory.Delete(path, true);
+            else Directory.CreateDirectory(path);
         }
 
         public static string FolderPath()
         {
-           return FileSystem.CacheDirectory;
+            string path = Path.Combine(FileSystem.CacheDirectory, "pdfdocs");
 
-            P42.Utils.DirectoryExtensions.AssureExists(P42.Utils.Environment.TemporaryStoragePath);
-            var root = Path.Combine(P42.Utils.Environment.TemporaryStoragePath, LocalStorageFolderName);
-            P42.Utils.DirectoryExtensions.AssureExists(root);
-            return root;
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            return path;
         }
-
 
         public async Task<ToFileResult> ToPdfAsync(string html, string fileName, PageSize pageSize, PageMargin margin)
         {
@@ -49,14 +52,13 @@ namespace HtmlToPdf.Maui
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, WebView xfWebView, string fileName, PageSize pageSize, PageMargin margin)
         {
-            var IOSWebView = xfWebView?.Handler?.PlatformView as WKWebView;
-            if (IOSWebView != null)
-            {
-                IOSWebView.BackgroundColor = UIColor.White;
-                IOSWebView.UserInteractionEnabled = false;
-                IOSWebView.NavigationDelegate = new WKNavigationCompleteCallback(fileName, pageSize, margin, taskCompletionSource, NavigationComplete);
-            }
+            Microsoft.Maui.Platform.MauiWKWebView iosWebView = xfWebView?.Handler?.PlatformView as Microsoft.Maui.Platform.MauiWKWebView;
+
+            iosWebView.BackgroundColor = UIColor.White;
+            iosWebView.UserInteractionEnabled = false;
+            iosWebView.NavigationDelegate = new WKNavigationCompleteCallback(fileName, pageSize, margin, taskCompletionSource, NavigationComplete);
         }
+
 
         public void ToPdf(TaskCompletionSource<ToFileResult> taskCompletionSource, string html, string fileName, PageSize pageSize, PageMargin margin)
         {
